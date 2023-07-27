@@ -12,7 +12,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\HotelFinder.Business\HotelFinder.Business.csproj" />
-    <ProjectReference Include="..\HotelFinder.Entites\HotelFinder.Entites.csproj" />
+    <ProjectReference Include="..\HotelFinder.Entites\HotelFinder.Entities.csproj" />
   </ItemGroup>
 
 </Project>
