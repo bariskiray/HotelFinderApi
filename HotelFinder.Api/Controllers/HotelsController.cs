@@ -15,29 +15,46 @@ namespace HotelFinder.Api.Controllers
             _service = service;
         }
         [HttpGet]
-        public List<Hotel> Get()
+
+        public IActionResult Get()
         {
-            return _service.GetAllHotel();
+            var hotels = _service.GetAllHotel();
+            return Ok(hotels);
         }
         [HttpGet("{id}")]
-        public Hotel Get(int id)
+        public IActionResult Get(int id)
         {
-            return _service.GetHotelById(id);
+            var hotels = _service.GetHotelById(id);
+            if (hotels!=null)
+            {
+                return Ok(hotels);
+            }
+            return NotFound();
         }
         [HttpPost]
-        public Hotel Post([FromBody] Hotel hotel)
-        {
-            return _service.CreateHotel(hotel);
+        public IActionResult Post([FromBody] Hotel hotel)
+        {       
+            var createdhotel= _service.CreateHotel(hotel);
+            return CreatedAtAction("Get", new {id=createdhotel.ID}, createdhotel)
         }
         [HttpPut]
-        public Hotel Put([FromBody] Hotel hotel)
+        public IActionResult Put([FromBody] Hotel hotel)
         {
-            return _service.UpdateHotel(hotel);
+            if(_service.GetHotelById(hotel.ID) != null)
+            {
+                return Ok(_service.UpdateHotel(hotel);
+            }
+            return NotFound();
         }
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public IActionResult Delete(int id)
         {
-            _service.DeleteHotel(id);
+            if (_service.GetHotelById(id) != null)
+            {
+                _service.DeleteHotel(id);
+                return Ok();
+            }
+            return NotFound();
         }
     }
 }
