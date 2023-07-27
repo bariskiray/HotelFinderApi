@@ -15,14 +15,15 @@ namespace HotelFinder.Api.Controllers
             _service = service;
         }
         [HttpGet]
-
-        public IActionResult Get()
+        [Route("[action]")]
+        public IActionResult GetAllHotels()
         {
             var hotels = _service.GetAllHotel();
             return Ok(hotels);
         }
-        [HttpGet("{id}")]
-        public IActionResult Get(int id)
+        [HttpGet]
+        [Route("[action]/{id}")]
+        public IActionResult GetHotelByID(int id)
         {
             var hotels = _service.GetHotelById(id);
             if (hotels!=null)
@@ -32,13 +33,15 @@ namespace HotelFinder.Api.Controllers
             return NotFound();
         }
         [HttpPost]
-        public IActionResult Post([FromBody] Hotel hotel)
+        [Route("[action]")]
+        public IActionResult CreateHotel([FromBody] Hotel hotel)
         {       
             var createdhotel= _service.CreateHotel(hotel);
             return CreatedAtAction("Get", new { id = createdhotel.ID }, createdhotel);
         }
         [HttpPut]
-        public IActionResult Put([FromBody] Hotel hotel)
+        [Route("[action]")]
+        public IActionResult UpdateHotel([FromBody] Hotel hotel)
         {
             if(_service.GetHotelById(hotel.ID) != null)
             {
@@ -46,8 +49,9 @@ namespace HotelFinder.Api.Controllers
             }
             return NotFound();
         }
-        [HttpDelete("{id}")]
-        public IActionResult Delete(int id)
+        [HttpDelete]
+        [Route("[action]/{id}")]
+        public IActionResult DeleteHotel(int id)
         {
             if (_service.GetHotelById(id) != null)
             {
