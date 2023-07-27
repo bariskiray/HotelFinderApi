@@ -15,7 +15,8 @@ namespace HotelFinder.Api
             builder.Services.AddRazorPages();
             builder.Services.AddControllers();
             builder.Services.AddSingleton<IHotelService,HotelManager>(); 
-            builder.Services.AddSingleton<IHotelRepository,HotelRepository>();  
+            builder.Services.AddSingleton<IHotelRepository,HotelRepository>();
+            builder.Services.AddSwaggerDocument();
 
             var app = builder.Build();
 
@@ -27,6 +28,8 @@ namespace HotelFinder.Api
             app.UseStaticFiles();
 
             app.UseRouting();
+            app.UseOpenApi();
+            app.UseSwaggerUi3();
 
             app.UseAuthorization();
             app.UseEndpoints(endpoints =>

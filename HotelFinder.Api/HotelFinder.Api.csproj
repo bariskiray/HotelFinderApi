@@ -7,6 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="NSwag.AspNetCore" Version="13.19.0" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\HotelFinder.Business\HotelFinder.Business.csproj" />
     <ProjectReference Include="..\HotelFinder.Entites\HotelFinder.Entites.csproj" />
   </ItemGroup>
