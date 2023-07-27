@@ -35,14 +35,14 @@ namespace HotelFinder.Api.Controllers
         public IActionResult Post([FromBody] Hotel hotel)
         {       
             var createdhotel= _service.CreateHotel(hotel);
-            return CreatedAtAction("Get", new {id=createdhotel.ID}, createdhotel)
+            return CreatedAtAction("Get", new { id = createdhotel.ID }, createdhotel);
         }
         [HttpPut]
         public IActionResult Put([FromBody] Hotel hotel)
         {
             if(_service.GetHotelById(hotel.ID) != null)
             {
-                return Ok(_service.UpdateHotel(hotel);
+                return Ok(_service.UpdateHotel(hotel));
             }
             return NotFound();
         }
