@@ -16,16 +16,16 @@ namespace HotelFinder.Api.Controllers
         }
         [HttpGet]
         [Route("[action]")]
-        public IActionResult GetAllHotels()
+        public async Task<IActionResult> GetAllHotels()
         {
-            var hotels = _service.GetAllHotel();
+            var hotels = await _service.GetAllHotel();
             return Ok(hotels);
         }
         [HttpGet]
         [Route("[action]/{id}")]
-        public IActionResult GetHotelByID(int id)
+        public async Task<IActionResult> GetHotelByID(int id)
         {
-            var hotels = _service.GetHotelById(id);
+            var hotels = await _service.GetHotelById(id);
             if (hotels!=null)
             {
                 return Ok(hotels);
@@ -34,28 +34,28 @@ namespace HotelFinder.Api.Controllers
         }
         [HttpPost]
         [Route("[action]")]
-        public IActionResult CreateHotel([FromBody] Hotel hotel)
+        public async Task<IActionResult> CreateHotel([FromBody] Hotel hotel)
         {       
-            var createdhotel= _service.CreateHotel(hotel);
+            var createdhotel= await _service.CreateHotel(hotel);
             return CreatedAtAction("Get", new { id = createdhotel.ID }, createdhotel);
         }
         [HttpPut]
         [Route("[action]")]
-        public IActionResult UpdateHotel([FromBody] Hotel hotel)
+        public async Task<IActionResult> UpdateHotel([FromBody] Hotel hotel)
         {
-            if(_service.GetHotelById(hotel.ID) != null)
+            if(await _service.GetHotelById(hotel.ID) != null)
             {
-                return Ok(_service.UpdateHotel(hotel));
+                return Ok(await _service.UpdateHotel(hotel));
             }
             return NotFound();
         }
         [HttpDelete]
         [Route("[action]/{id}")]
-        public IActionResult DeleteHotel(int id)
+        public async Task<IActionResult> DeleteHotel(int id)
         {
-            if (_service.GetHotelById(id) != null)
+            if (await _service.GetHotelById(id) != null)
             {
-                _service.DeleteHotel(id);
+                await _service.DeleteHotel(id);
                 return Ok();
             }
             return NotFound();
